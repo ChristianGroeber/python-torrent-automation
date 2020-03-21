@@ -18,7 +18,7 @@ def download(torrent):
 
 def update(sc, update_counter):
     print('Running update ' + str(update_counter))
-    news_feed = feedparser.parse('https://dxdhd.com/rss/217.c4233ae8c9619dbb8f1c1a6cd5ab34df')
+    news_feed = feedparser.parse(settings.RSS_FEED)
     for torr in news_feed.entries:
         parsed = Torrent.Torrent(torr)
         all_torrents.append(parsed)
