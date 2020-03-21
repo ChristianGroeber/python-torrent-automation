@@ -19,7 +19,6 @@ class EnvParser:
             if len(line) > 1 and line[0] != '#':
                 split = line.split(' = ')
                 self.vars[split[0]] = split[1]
-                print(line)
         if load_local:
             self.parse('.env.local', False)
         return True
