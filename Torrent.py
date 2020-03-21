@@ -7,5 +7,5 @@ class Torrent:
         self.link = rss['link']
         self.summary = rss['summary']
         self.size = self.summary.split('/ ')[2].split(' ')[0]
-        self.download = float(self.size) <= settings.MAX_SIZE | settings.MAX_SIZE == -1
+        self.download = float(self.size) <= settings.MAX_SIZE or settings.MAX_SIZE == -1
         self.id = int(rss['comments'].split('/')[-1])

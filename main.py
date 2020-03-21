@@ -3,23 +3,36 @@ import Torrent
 import urllib.request
 import os
 import settings
+import sched, time
 
 
-news_feed = feedparser.parse('https://dxdhd.com/rss/217.c4233ae8c9619dbb8f1c1a6cd5ab34df')
-
+schedule = sched.scheduler(time.time, time.sleep)
 torrents = []
+all_torrents = []
 
 
 def download(torrent):
+    print('adding torrent ' + torrent.title)
     urllib.request.urlretrieve(torrent.link, os.path.join(settings.WATCH_DIR, str(torrent.id) + ".torrent"))
 
 
-for torr in news_feed.entries:
-    parsed = Torrent.Torrent(torr)
-    if parsed.download:
-        for torrent in torrents:
-            if torrent.id is parsed.id:
-                break
-        else:
-            torrents.append(parsed)
-            download(parsed)
+def update(sc, update_counter):
+    print('Running update ' + str(update_counter))
+    news_feed = feedparser.parse('https://dxdhd.com/rss/217.c4233ae8c9619dbb8f1c1a6cd5ab34df')
+    for torr in news_feed.entries:
+        parsed = Torrent.Torrent(torr)
+        all_torrents.append(parsed)
+        if parsed.download:
+            for torrent in torrents:
+                if torrent.id is parsed.id:
+                    break
+            else:
+                torrents.append(parsed)
+                download(parsed)
+    if settings.AUTOMATIC_UPDATE:
+        update_counter += 1
+        schedule.enter(60 * settings.UPDATE_AFTER_MINUTES, 1, update, (sc, update_counter))
+
+
+schedule.enter(1, 1, update, (schedule, 1))
+schedule.run()
