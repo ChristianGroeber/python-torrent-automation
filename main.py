@@ -29,10 +29,10 @@ def update(sc, update_counter):
             else:
                 torrents.append(parsed)
                 download(parsed)
+    print('finished update ' + str(update_counter))
     if settings.AUTOMATIC_UPDATE:
         update_counter += 1
         schedule.enter(60 * settings.UPDATE_AFTER_MINUTES, 1, update, (sc, update_counter))
-    print('finished update ' + str(update_counter))
 
 
 schedule.enter(1, 1, update, (schedule, 1))
