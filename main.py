@@ -24,7 +24,7 @@ def update(sc, update_counter):
         all_torrents.append(parsed)
         if parsed.download:
             for torrent in torrents:
-                if torrent.id is parsed.id:
+                if torrent.id == parsed.id:
                     break
             else:
                 torrents.append(parsed)
@@ -32,6 +32,7 @@ def update(sc, update_counter):
     if settings.AUTOMATIC_UPDATE:
         update_counter += 1
         schedule.enter(60 * settings.UPDATE_AFTER_MINUTES, 1, update, (sc, update_counter))
+    print('finished update ' + str(update_counter))
 
 
 schedule.enter(1, 1, update, (schedule, 1))

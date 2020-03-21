@@ -14,4 +14,4 @@ MAX_SIZE = int(parser.get('MAX_SIZE'))
 AUTOMATIC_UPDATE = int(parser.get('AUTOMATIC_UPDATE')) == 1
 
 # after how many minutes the program should rerun
-UPDATE_AFTER_MINUTES = int(parser.get('UPDATE_AFTER_MINUTES'))
+UPDATE_AFTER_MINUTES = float(parser.get('UPDATE_AFTER_MINUTES'))
