@@ -92,7 +92,7 @@ def update(sc, update_counter):
 def download_manually():
     global manual_download
     url = manual_download.get()
-    torrent = Torrent.Torrent({'title': url, 'link': url, 'summary': '0 / 0 / 0 GiB', 'comments': url})
+    torrent = Torrent.Torrent({'title': url, 'link': url, 'summary': '0 / 0 / 0 GiB', 'comments': url.split('/')[-1].split('.')[0]})
     download(torrent)
 
 
