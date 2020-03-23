@@ -63,7 +63,7 @@ def toggle_active():
 
 
 def download(torrent):
-    write_log('downloading' + torrent.title)
+    write_log('downloading ' + torrent.title)
     urllib.request.urlretrieve(torrent.link, os.path.join(settings.WATCH_DIR, str(torrent.id) + ".torrent"))
 
 
@@ -89,6 +89,13 @@ def update(sc, update_counter):
         schedule.enter(60 * settings.UPDATE_AFTER_MINUTES, 1, update, (sc, update_counter))
 
 
+def download_manually():
+    global manual_download
+    url = manual_download.get()
+    torrent = Torrent.Torrent({'title': url, 'link': url, 'summary': '0 / 0 / 0 GiB', 'comments': url})
+    download(torrent)
+
+
 def create_thread():
     thread = threading.Thread(target=schedule.run, args=(1,))
     schedule.enter(1, 1, update, (schedule, updates))
@@ -108,16 +115,21 @@ Label(master, text="Watch Directory").grid(row=0)
 Label(master, text="Update Every Minutes").grid(row=1)
 Label(master, text="RSS Feed").grid(row=2)
 Label(master, text="Max Size").grid(row=3)
+Label(master, text="Manual download").grid(row=4)
 
 watch_dir = Entry(master)
 update_after_minutes = Entry(master)
 rss_feed = Entry(master)
 max_size = Entry(master)
 
+manual_download = Entry(master)
+
 watch_dir.grid(row=0, column=1)
 update_after_minutes.grid(row=1, column=1)
 rss_feed.grid(row=2, column=1)
 max_size.grid(row=3, column=1)
+
+manual_download.grid(row=4, column=1)
 
 watch_dir.insert(END, settings.WATCH_DIR)
 update_after_minutes.insert(END, settings.UPDATE_AFTER_MINUTES)
@@ -125,13 +137,16 @@ rss_feed.insert(END, settings.RSS_FEED)
 max_size.insert(END, settings.MAX_SIZE)
 
 update_btn = Button(master, text='Update', command=update_settings)
-update_btn.grid(row=4, column=1)
+update_btn.grid(row=5, column=1)
 pause_btn = Button(master, textvariable=pause_btn_text, command=toggle_active)
-pause_btn.grid(row=5, column=1)
+pause_btn.grid(row=6, column=1)
+
+download_btn = Button(master, text='Download', command=download_manually)
+download_btn.grid(row=4, column=2)
 
 
 log_area = Text(master)
-log_area.grid(row=6, column=1)
+log_area.grid(row=7, column=1)
 log_area.config(state=DISABLED)
 
 
