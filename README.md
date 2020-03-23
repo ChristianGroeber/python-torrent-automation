@@ -10,7 +10,7 @@ A script that watches an RSS feed from DXDHD and automatically downloads to .tor
 *  clone the repository
 
 ## Setup
-*  Find an RSS Feed on DXDHD you'd like to use to fetch torrents
+*  Find an RSS Feed on DXDHD or any other tracker you'd like to use to fetch torrents (app is developed for rss feeds from dxdhd so it may not work with other trackers)
 *  create a copy of the ```.env``` file and name it ```.env.local```
 *  change the values in ```.env.local``` to your requirements (those can later be changed during runtime)
 *  define a directory in your torrent client to watch for newly added *.torrent files
