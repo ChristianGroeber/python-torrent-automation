@@ -46,6 +46,11 @@ def update_settings():
         write_log('updated update after minutes to ' + str(new_update_after_minutes))
         settings.UPDATE_AFTER_MINUTES = new_update_after_minutes
 
+    new_max_size = int(max_size.get())
+    if new_max_size != settings.MAX_SIZE:
+        write_log('updated max size to ' + str(new_max_size))
+        settings.MAX_SIZE = new_max_size
+
 
 def toggle_active():
     if settings.AUTOMATIC_UPDATE:
@@ -102,27 +107,31 @@ def close():
 Label(master, text="Watch Directory").grid(row=0)
 Label(master, text="Update Every Minutes").grid(row=1)
 Label(master, text="RSS Feed").grid(row=2)
+Label(master, text="Max Size").grid(row=3)
 
 watch_dir = Entry(master)
 update_after_minutes = Entry(master)
 rss_feed = Entry(master)
+max_size = Entry(master)
 
 watch_dir.grid(row=0, column=1)
 update_after_minutes.grid(row=1, column=1)
 rss_feed.grid(row=2, column=1)
+max_size.grid(row=3, column=1)
 
 watch_dir.insert(END, settings.WATCH_DIR)
 update_after_minutes.insert(END, settings.UPDATE_AFTER_MINUTES)
 rss_feed.insert(END, settings.RSS_FEED)
+max_size.insert(END, settings.MAX_SIZE)
 
 update_btn = Button(master, text='Update', command=update_settings)
-update_btn.grid(row=3, column=1)
+update_btn.grid(row=4, column=1)
 pause_btn = Button(master, textvariable=pause_btn_text, command=toggle_active)
-pause_btn.grid(row=4, column=1)
+pause_btn.grid(row=5, column=1)
 
 
 log_area = Text(master)
-log_area.grid(row=5, column=1)
+log_area.grid(row=6, column=1)
 log_area.config(state=DISABLED)
 
 
