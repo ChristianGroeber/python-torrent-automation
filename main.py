@@ -15,7 +15,7 @@ import sys
 master = Tk()
 
 pause_btn_text = StringVar()
-pause_btn_text.set('Pause')
+pause_btn_text.set('Start')
 
 torrents = []
 all_torrents = []
@@ -24,6 +24,8 @@ schedule = sched.scheduler(time.time, time.sleep)
 
 updates = 1
 log_file = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + ".log"
+
+started = False
 
 
 def get_time_str():
@@ -53,7 +55,12 @@ def update_settings():
 
 
 def toggle_active():
-    if settings.AUTOMATIC_UPDATE:
+    global started
+    if not started:
+        started = True
+        pause_btn_text.set('Pause')
+        create_thread()
+    elif settings.AUTOMATIC_UPDATE:
         settings.AUTOMATIC_UPDATE = False
         pause_btn_text.set('Continue')
     else:
@@ -101,9 +108,6 @@ def create_thread():
     schedule.enter(1, 1, update, (schedule, updates))
     thread.start()
     return thread
-
-
-current_thread = create_thread()
 
 
 def close():
