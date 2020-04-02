@@ -14,7 +14,7 @@ import sys
 
 gui = True
 
-if sys.argv[1] or sys.argv[1] == '--nogui':
+if len(sys.argv) > 1 and sys.argv[1] == '--nogui':
     gui = False
 
 master = Tk()
