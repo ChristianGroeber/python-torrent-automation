@@ -17,8 +17,6 @@ master = None
 
 if len(sys.argv) > 1 and sys.argv[1] == '--nogui':
     gui = False
-else:
-    master = Tk()
 
 pause_btn_text = StringVar()
 pause_btn_text.set('Start')
@@ -116,48 +114,51 @@ def create_thread():
     return thread
 
 
+master = Tk()
+
+
 def close():
     master.destroy()
     raise Exception
 
 
-Label(master, text="Watch Directory").grid(row=0)
-Label(master, text="Update Every Minutes").grid(row=1)
-Label(master, text="RSS Feed").grid(row=2)
-Label(master, text="Max Size").grid(row=3)
-Label(master, text="Manual download").grid(row=4)
+if gui:
+    Label(master, text="Watch Directory").grid(row=0)
+    Label(master, text="Update Every Minutes").grid(row=1)
+    Label(master, text="RSS Feed").grid(row=2)
+    Label(master, text="Max Size").grid(row=3)
+    Label(master, text="Manual download").grid(row=4)
 
-watch_dir = Entry(master)
-update_after_minutes = Entry(master)
-rss_feed = Entry(master)
-max_size = Entry(master)
+    watch_dir = Entry(master)
+    update_after_minutes = Entry(master)
+    rss_feed = Entry(master)
+    max_size = Entry(master)
 
-manual_download = Entry(master)
+    manual_download = Entry(master)
 
-watch_dir.grid(row=0, column=1)
-update_after_minutes.grid(row=1, column=1)
-rss_feed.grid(row=2, column=1)
-max_size.grid(row=3, column=1)
+    watch_dir.grid(row=0, column=1)
+    update_after_minutes.grid(row=1, column=1)
+    rss_feed.grid(row=2, column=1)
+    max_size.grid(row=3, column=1)
 
-manual_download.grid(row=4, column=1)
+    manual_download.grid(row=4, column=1)
 
-watch_dir.insert(END, settings.WATCH_DIR)
-update_after_minutes.insert(END, settings.UPDATE_AFTER_MINUTES)
-rss_feed.insert(END, settings.RSS_FEED)
-max_size.insert(END, settings.MAX_SIZE)
+    watch_dir.insert(END, settings.WATCH_DIR)
+    update_after_minutes.insert(END, settings.UPDATE_AFTER_MINUTES)
+    rss_feed.insert(END, settings.RSS_FEED)
+    max_size.insert(END, settings.MAX_SIZE)
 
-update_btn = Button(master, text='Update', command=update_settings)
-update_btn.grid(row=5, column=1)
-pause_btn = Button(master, textvariable=pause_btn_text, command=toggle_active)
-pause_btn.grid(row=6, column=1)
+    update_btn = Button(master, text='Update', command=update_settings)
+    update_btn.grid(row=5, column=1)
+    pause_btn = Button(master, textvariable=pause_btn_text, command=toggle_active)
+    pause_btn.grid(row=6, column=1)
 
-download_btn = Button(master, text='Download', command=download_manually)
-download_btn.grid(row=4, column=2)
+    download_btn = Button(master, text='Download', command=download_manually)
+    download_btn.grid(row=4, column=2)
 
-
-log_area = Text(master)
-log_area.grid(row=7, column=1)
-log_area.config(state=DISABLED)
+    log_area = Text(master)
+    log_area.grid(row=7, column=1)
+    log_area.config(state=DISABLED)
 
 
 def write_log(text):
