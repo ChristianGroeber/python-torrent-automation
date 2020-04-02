@@ -115,7 +115,8 @@ def create_thread():
     return thread
 
 
-master = Tk()
+if gui:
+    master = Tk()
 
 
 def close():
