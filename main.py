@@ -180,9 +180,9 @@ if gui:
     master.mainloop()
 else:
     rss_feed = input('rss feed [' + settings.RSS_FEED + "]: ")
-    watch_dir = input('rss feed [' + settings.WATCH_DIR + "]: ")
-    update_after_minutes = input('rss feed [' + str(settings.UPDATE_AFTER_MINUTES) + "]: ")
-    automatic_update = input('rss feed [' + settings.AUTOMATIC_UPDATE + "] - y/n: ")
+    watch_dir = input('watch dir [' + settings.WATCH_DIR + "]: ")
+    update_after_minutes = input('update every ... minutes [' + str(settings.UPDATE_AFTER_MINUTES) + "]: ")
+    automatic_update = input('automatic update [' + str(settings.AUTOMATIC_UPDATE) + "] - y/n: ")
 
     if rss_feed != '':
         settings.RSS_FEED = rss_feed
