@@ -13,11 +13,12 @@ import settings
 import sys
 
 gui = True
+master = None
 
 if len(sys.argv) > 1 and sys.argv[1] == '--nogui':
     gui = False
-
-master = Tk()
+else:
+    master = Tk()
 
 pause_btn_text = StringVar()
 pause_btn_text.set('Start')
