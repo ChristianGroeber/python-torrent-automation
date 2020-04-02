@@ -194,6 +194,6 @@ else:
     if automatic_update != '':
         settings.AUTOMATIC_UPDATE = automatic_update
     if max_size != '':
-        settings.MAX_SIZE = max_size
+        settings.MAX_SIZE = int(max_size)
 
     create_thread()
