@@ -18,8 +18,9 @@ master = None
 if len(sys.argv) > 1 and sys.argv[1] == '--nogui':
     gui = False
 
-pause_btn_text = StringVar()
-pause_btn_text.set('Start')
+if gui:
+    pause_btn_text = StringVar()
+    pause_btn_text.set('Start')
 
 torrents = []
 all_torrents = []
