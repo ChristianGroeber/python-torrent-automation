@@ -166,10 +166,10 @@ if gui:
 def write_log(text):
     global log_file
     global log_area
-    text = get_time_str() + ': ' + str(text) + '\n'
+    text = get_time_str() + ': ' + str(text)
     if gui:
         log_area.config(state=NORMAL)
-        log_area.insert(INSERT, text)
+        log_area.insert(INSERT, text + '\n')
         log_area.config(state=DISABLED)
     else:
         print(text)
