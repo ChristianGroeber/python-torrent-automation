@@ -12,6 +12,11 @@ import Torrent
 import settings
 import sys
 
+gui = True
+
+if sys.argv[1] or sys.argv[1] == '--nogui':
+    gui = False
+
 master = Tk()
 
 pause_btn_text = StringVar()
@@ -158,10 +163,30 @@ def write_log(text):
     global log_file
     global log_area
     text = get_time_str() + ': ' + str(text) + '\n'
-    log_area.config(state=NORMAL)
-    log_area.insert(INSERT, text)
-    log_area.config(state=DISABLED)
+    if gui:
+        log_area.config(state=NORMAL)
+        log_area.insert(INSERT, text)
+        log_area.config(state=DISABLED)
+    else:
+        print(text)
 
 
-master.protocol("WM_DELETE_WINDOW", close)
-master.mainloop()
+if gui:
+    master.protocol("WM_DELETE_WINDOW", close)
+    master.mainloop()
+else:
+    rss_feed = input('rss feed [' + settings.RSS_FEED + "]: ")
+    watch_dir = input('rss feed [' + settings.WATCH_DIR + "]: ")
+    update_after_minutes = input('rss feed [' + str(settings.UPDATE_AFTER_MINUTES) + "]: ")
+    automatic_update = input('rss feed [' + settings.AUTOMATIC_UPDATE + "] - y/n: ")
+
+    if rss_feed != '':
+        settings.RSS_FEED = rss_feed
+    if watch_dir != '':
+        settings.WATCH_DIR = watch_dir
+    if update_after_minutes != '':
+        settings.WATCH_DIR = update_after_minutes
+    if automatic_update != '':
+        settings.AUTOMATIC_UPDATE = automatic_update
+
+    create_thread()
