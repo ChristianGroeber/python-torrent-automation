@@ -183,6 +183,7 @@ else:
     watch_dir = input('watch dir [' + settings.WATCH_DIR + "]: ")
     update_after_minutes = input('update every ... minutes [' + str(settings.UPDATE_AFTER_MINUTES) + "]: ")
     automatic_update = input('automatic update [' + str(settings.AUTOMATIC_UPDATE) + "] - y/n: ")
+    max_size = input('max size [%s]:' % (str(settings.MAX_SIZE)))
 
     if rss_feed != '':
         settings.RSS_FEED = rss_feed
@@ -192,5 +193,7 @@ else:
         settings.WATCH_DIR = update_after_minutes
     if automatic_update != '':
         settings.AUTOMATIC_UPDATE = automatic_update
+    if max_size != '':
+        settings.MAX_SIZE = max_size
 
     create_thread()
