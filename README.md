@@ -17,3 +17,7 @@ A script that watches an RSS feed from DXDHD and automatically downloads to .tor
 
 ## Usage
 *  run ```main.py``` (```python3 main.py```)
+
+## Run without GUI
+*  add ```--nogui``` after the beforementioned command. (```python3 main.py --nogui```)
+*  You will be asked if you wish to change any of the options, if you're happy with the default just press enter.
